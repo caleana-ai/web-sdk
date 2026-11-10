@@ -1,0 +1,37 @@
+name: Publish SDK
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: public-npm-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.actor == 'caleana-engineering' && github.triggering_actor == 'caleana-engineering' && github.repository == 'caleana-ai/web-sdk'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require public repository and a versioned tag
+        env:
+          REPOSITORY_PRIVATE: ${{ github.event.repository.private }}
+          RELEASE_REF: ${{ github.ref }}
+        run: |
+          test "$REPOSITORY_PRIVATE" = "false"
+          case "$RELEASE_REF" in refs/tags/v*) ;; *) echo 'Select a version tag to publish'; exit 1;; esac
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+      - run: npm install --global npm@11
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: npm run verify
+      - name: Verify release tag
+        run: node --input-type=module -e "import { readFileSync } from 'node:fs'; const pkg = JSON.parse(readFileSync('package.json')); if (process.env.GITHUB_REF_NAME !== 'v' + pkg.version) throw new Error('Tag must match package version');"
+      - name: Publish public packages through npm trusted publishing
+        run: node scripts/publish.mjs

@@ -1,0 +1,19 @@
+{
+  "name": "My Plugin",
+  "version": "1.0.0",
+  "generationMode": "supports-update",
+  "hostGeneration": "transformer",
+  "editableOutput": true,
+  "inputSchema": {
+    "schemaId": "my-plugin-v1",
+    "schemaVersion": "1.0.0",
+    "jsonSchema": {
+      "type": "object",
+      "properties": { "message": { "type": "string" } },
+      "required": ["message"],
+      "additionalProperties": false
+    }
+  },
+  "nativeOutputs": [{ "format": "txt", "mimeType": "text/plain" }],
+  "exports": [{ "format": "txt", "label": "Download text", "source": "txt" }]
+}

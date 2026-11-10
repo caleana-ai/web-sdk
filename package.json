@@ -1,0 +1,81 @@
+{
+  "name": "@caleana-ai/web-sdk",
+  "version": "0.3.0",
+  "description": "SDK for building interactive tools and output plugins for Caleana",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build --workspace @caleana-ai/integration-protocol && tsc",
+    "typecheck": "npm run build --workspace @caleana-ai/integration-protocol && tsc --noEmit",
+    "test": "node --import tsx --test test/*.test.ts && npm test --workspace @caleana-ai/integration-protocol",
+    "test:package": "node scripts/check-package.mjs",
+    "test:browser": "node scripts/check-browser.mjs",
+    "verify": "npm run build && npm run typecheck && npm test && npm run test:package && npm run test:browser",
+    "prepublishOnly": "npm run build && npm test && npm run test:package"
+  },
+  "keywords": [
+    "caleana",
+    "plugin",
+    "sdk",
+    "react",
+    "iframe"
+  ],
+  "author": "Caleana Engineering",
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^3.25.76",
+    "@caleana-ai/integration-protocol": "1.0.0"
+  },
+  "peerDependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.18",
+    "@types/react": "^19.1.2",
+    "typescript": "5.9.3",
+    "tsx": "4.19.4",
+    "@playwright/test": "^1.62.1",
+    "esbuild": "0.25.4"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map",
+    "LICENSE",
+    "!dist/**/*.test.*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./protocol": {
+      "types": "./dist/protocol.d.ts",
+      "import": "./dist/protocol.js"
+    },
+    "./manifest": {
+      "types": "./dist/manifest.d.ts",
+      "import": "./dist/manifest.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caleana-ai/web-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/caleana-ai/web-sdk/issues"
+  },
+  "homepage": "https://github.com/caleana-ai/web-sdk#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "private": false,
+  "workspaces": [
+    "packages/integration-protocol"
+  ]
+}

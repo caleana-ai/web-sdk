@@ -1,0 +1,102 @@
+{
+  "name": "@caleana-ai/integration-protocol",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test 'src/**/*.test.ts'"
+  },
+  "dependencies": {
+    "zod": "3.25.76",
+    "ajv": "^8.20.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "tsx": "^4.19.4",
+    "@types/node": "22.15.18"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./transport": {
+      "types": "./dist/transport.d.ts",
+      "default": "./dist/transport.js"
+    },
+    "./lookup": {
+      "types": "./dist/lookup.d.ts",
+      "default": "./dist/lookup.js"
+    },
+    "./invocation-context": {
+      "types": "./dist/invocation-context.d.ts",
+      "default": "./dist/invocation-context.js"
+    },
+    "./destination": {
+      "types": "./dist/destination.d.ts",
+      "default": "./dist/destination.js"
+    },
+    "./document": {
+      "types": "./dist/document.d.ts",
+      "default": "./dist/document.js"
+    },
+    "./template-parameters": {
+      "types": "./dist/template-parameters.d.ts",
+      "default": "./dist/template-parameters.js"
+    },
+    "./extension-vocabulary": {
+      "types": "./dist/extension-vocabulary.d.ts",
+      "default": "./dist/extension-vocabulary.js"
+    },
+    "./adapter-config": {
+      "types": "./dist/adapter-config.d.ts",
+      "default": "./dist/adapter-config.js"
+    },
+    "./settings": {
+      "types": "./dist/settings.d.ts",
+      "default": "./dist/settings.js"
+    },
+    "./manifest": {
+      "types": "./dist/manifest.d.ts",
+      "default": "./dist/manifest.js"
+    },
+    "./registration": {
+      "types": "./dist/registration.d.ts",
+      "default": "./dist/registration.js"
+    },
+    "./installation": {
+      "types": "./dist/installation.d.ts",
+      "default": "./dist/installation.js"
+    },
+    "./binding": {
+      "types": "./dist/binding.d.ts",
+      "default": "./dist/binding.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "description": "Public integration wire schemas and codecs for Caleana",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caleana-ai/web-sdk.git",
+    "directory": "packages/integration-protocol"
+  },
+  "bugs": {
+    "url": "https://github.com/caleana-ai/web-sdk/issues"
+  },
+  "homepage": "https://github.com/caleana-ai/web-sdk#readme",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  }
+}
